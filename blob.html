@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smooth Gelatinous Blob</title>
+<style>
+  body {
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .blob {
+    width: 400px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #44c4ff;
+    border-radius: 60% 40% 70% 30% / 40% 60% 30% 70%;
+    animation: morph 14s ease-in-out infinite, squish 6s ease-in-out infinite;
+  }
+
+  .blob img {
+    width: 120px;
+    margin: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  /* Border-radius morphing */
+  @keyframes morph {
+    0% {
+      border-radius: 60% 40% 70% 30% / 40% 60% 30% 70%;
+    }
+    20% {
+      border-radius: 65% 35% 55% 45% / 50% 40% 60% 50%;
+    }
+    40% {
+      border-radius: 72% 28% 60% 40% / 45% 55% 35% 65%;
+    }
+    60% {
+      border-radius: 55% 45% 65% 35% / 60% 35% 55% 45%;
+    }
+    80% {
+      border-radius: 68% 32% 58% 42% / 42% 62% 38% 58%;
+    }
+    100% {
+      border-radius: 60% 40% 70% 30% / 40% 60% 30% 70%;
+    }
+  }
+
+  /* Gentle squish wobble */
+  @keyframes squish {
+    0%, 100% { transform: scale(1, 1); }
+    50% { transform: scale(1.04, 0.96); }
+  }
+</style>
+</head>
+<body>
+  <div class="blob">
+    <img src="gallery1.jpg" alt="">
+    <img src="gallery2.jpg" alt="">
+  </div>
+</body>
+</html>

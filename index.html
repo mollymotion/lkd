@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Lowkey Doom</title>
+<style>
+  body {
+    position: relative;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #d1d1d1; /* keep flat bg only */
+    color: #111;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+  }
+
+  /* red stripe, above footer-slice but under everything else */
+  body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('images/red-stripe2.svg') no-repeat top center;
+    background-size: auto 3400px;
+    background-position: calc(50% - 1700px) 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Top Logo */
+  .top-logo {
+    width: 100%;
+    max-width: 800px;
+    display: block;
+    margin: 0 auto;
+    margin-top: -17px;
+    z-index: 5;
+  }
+
+  /* Nav Bar */
+  nav {
+    background: #000;
+    padding: 0.5rem 0;
+    text-align: center;
+    width: 100vw;
+    margin-top: -8px;
+    box-sizing: border-box;
+    z-index: 5;
+  }
+  nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: inline-flex;
+    gap: 2rem;
+  }
+  nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  nav a:hover {
+    text-decoration: underline;
+  }
+
+  /* Call-to-actions */
+  .cta {
+    text-align: center;
+    margin: 1rem 0;
+    z-index: 5;
+  }
+  .cta p {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0.5em 0 1em 0;
+  }
+  .cta a {
+    display: inline-block;
+    margin: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  .members {
+    background: #f0271b;
+    color: #fff;
+    border: 4px solid #d1d1d1;
+  }
+  .shop {
+    background: #d1d1d1;
+    color: #f0271b;
+    border: 4px solid #f0271b;
+  }
+
+  /* Section Layout */
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1100px;
+    margin: -4rem auto; 
+    padding: 0;
+    gap: 0rem;
+    z-index: 800;
+  }
+  section h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: -2em;
+    z-index: 1000;
+    color: #111;
+    text-shadow:
+      0 6px 0 #fff,
+      0 6px 0 #fff,
+      0 6px 0 #fff,
+      0 0px 0 #fff,
+      3px 6px 0 #fff,
+      -3px 6px 0 #fff,
+      3px -3px 0 #fff,
+      -3px -3px 0 #fff,
+      3px 0px 0 #fff,
+      -3px 0px 0 #fff,
+      0px -2px 0 #fff;
+  }
+
+  /* Blob Base */
+  .blob {
+    width: 550px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .blob-thumb-wrap .blob {
+    padding: 0;
+  }
+
+
+  /* Thumbnails */
+  /* Thumbnails outside blob (gallery example) */
+.blob-thumb-wrap {
+  position: relative;
+  width: 500px;
+  height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 11rem;
+}
+  .blob-thumb-wrap .blob {
+    position: absolute;
+    top: 0;
+    left: 0; right: 0; bottom: 0;
+    z-index: 1;
+    margin: 0;
+  }
+  .gallery-thumbs {
+    /* Move thumbnails down to leave room for h2, without moving the blob */
+    margin-top: 5em;
+  }
+  .gallery-thumbs {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: -80px 4px; /* reduce vertical gap, keep horizontal spacing */
+    z-index: 2;
+    pointer-events: none;
+  }
+  .gallery-thumbs img {
+    width: 100px;
+    margin: -80px 10px;
+    border-radius: 24px;
+    border: 4px solid #27a9e0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    pointer-events: auto;
+    background: #fff;
+  }
+
+  /* Merch thumbs border = merch blob color */
+#merch .gallery-thumbs img {
+  border-color: #f0271b;
+}
+
+/* BTS thumbs border = BTS blob color */
+#bts .gallery-thumbs img {
+  border-color: #ffd93a;
+}
+
+
+
+  #bts {
+    margin-bottom: -150px; /* lets the yellow blob overlap into the footer */
+  }
+
+  /* Alignment helpers (staggered blobs) */
+  .align-right {
+    margin-left: 80px;
+  }
+  .align-left {
+    margin-right: 80px;
+  }
+
+  /* Bottom background */
+  .wrapper {
+    background-size: contain;
+    max-width: 1300px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 1rem;
+    padding-top: 1rem;
+  }
+
+  #blobs-cont {
+    margin-top: 0px;
+    width: 100%;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* keeps stagger margins */
+  }
+
+  /* Footer */
+  #footer {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    z-index: 0;
+  }
+
+  /* Repeating slice — full width, sets height */
+  .footer-slice {
+    width: 100%;
+    height: 100%; /* takes height of footer-main */
+    background: url('images/footer-slice.png') repeat-x bottom center;
+    background-size: auto 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 0;
+  }
+
+  /* Main footer image — natural aspect ratio, centered */
+  .footer-main {
+    background: url('images/footer.png') no-repeat bottom center;
+    background-size: contain;
+    width: 100%;
+    max-width: 1206px;   /* natural footer.png width */
+    aspect-ratio: 1206 / 1575;
+    z-index: 2;
+  }
+
+  /* Clouds inside footer */
+  #footer .cloud {
+    position: absolute;
+    pointer-events: none;
+    z-index: 3;
+    opacity: 0.9;
+  }
+
+  /* Cloud 1 (big, lower, slower) */
+  .cloud1 {
+  width: min(35vw, 552px);  /* scales with viewport, maxes at original size */
+  height: auto;
+  bottom: 64%;
+  left: -35vw; /* start off-screen left */
+  animation: cloud1-move 100s linear infinite;
+}
+
+.cloud2 {
+  width: min(30vw, 492px);
+  height: auto;
+  bottom: 43%;
+  left: -30vw; /* start off-screen left */
+  animation: cloud2-move 60s linear infinite;
+}
+
+
+  .footer-logo {
+  position: absolute;
+  bottom: 20px;           /* adjust vertical padding above edge */
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 300px;       /* scale logo size, tweak as needed */
+  width: 100%;
+  height: auto;
+  z-index: 4;             /* above footer bg and slice, in front of clouds */
+}
+
+#contact {
+  color: #fff;
+  position: absolute;
+  bottom: 0px;           /* adjust vertical padding above edge */
+  left: 50%;
+  transform: translateX(-45%);
+  max-width: 300px;       /* scale logo size, tweak as needed */
+  width: 100%;
+  height: auto;
+  z-index: 4;             /* above footer bg and slice, in front of clouds */
+}
+
+#contact a {
+  color: #27a9e0;
+}
+
+
+  @keyframes cloud1-move {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(100vw + 35vw)); }
+  }
+  @keyframes cloud2-move {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(100vw + 30vw)); }
+  }
+
+  .lady-trash {
+    display: block;
+    max-width: 702px;
+    width: 100%;
+    margin-left: auto;
+    margin-top: -62px;
+    z-index: 0; 
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG clipPaths for animated blobs -->
+<svg width="0" height="0">
+  <!-- Gallery Blob -->
+  <clipPath id="galleryClip" clipPathUnits="objectBoundingBox">
+    <path d="M0.5,0.08 Q0.75,0.15,0.88,0.32 Q1,0.5,0.82,0.7 Q0.64,0.9,0.42,0.88 Q0.2,0.85,0.1,0.62 Q0,0.4,0.18,0.22 Q0.36,0.05,0.5,0.08Z">
+      <animate attributeName="d" dur="12s" repeatCount="indefinite"
+        values="
+          M0.5,0.08 Q0.75,0.15,0.88,0.32 Q1,0.5,0.82,0.7 Q0.64,0.9,0.42,0.88 Q0.2,0.85,0.1,0.62 Q0,0.4,0.18,0.22 Q0.36,0.05,0.5,0.08Z;
+          M0.5,0.1 Q0.7,0.18,0.85,0.35 Q0.95,0.55,0.8,0.75 Q0.65,0.92,0.4,0.9 Q0.18,0.85,0.1,0.55 Q0.05,0.3,0.22,0.18 Q0.38,0.05,0.5,0.1Z;
+          M0.5,0.08 Q0.75,0.15,0.88,0.32 Q1,0.5,0.82,0.7 Q0.64,0.9,0.42,0.88 Q0.2,0.85,0.1,0.62 Q0,0.4,0.18,0.22 Q0.36,0.05,0.5,0.08Z" />
+    </path>
+  </clipPath>
+
+  <!-- Merch Blob -->
+  <clipPath id="merchClip" clipPathUnits="objectBoundingBox">
+    <path d="M0.45,0.08 Q0.65,0.18,0.78,0.38 Q0.9,0.58,0.72,0.78 Q0.55,0.95,0.35,0.9 Q0.18,0.85,0.08,0.62 Q0,0.4,0.18,0.2 Q0.32,0.05,0.45,0.08Z">
+      <animate attributeName="d" dur="13s" repeatCount="indefinite"
+        values="
+          M0.45,0.08 Q0.65,0.18,0.78,0.38 Q0.9,0.58,0.72,0.78 Q0.55,0.95,0.35,0.9 Q0.18,0.85,0.08,0.62 Q0,0.4,0.18,0.2 Q0.32,0.05,0.45,0.08Z;
+          M0.48,0.1 Q0.68,0.2,0.8,0.42 Q0.88,0.62,0.7,0.8 Q0.52,0.94,0.32,0.86 Q0.14,0.74,0.08,0.5 Q0.02,0.3,0.2,0.14 Q0.36,0.02,0.48,0.1Z;
+          M0.45,0.08 Q0.65,0.18,0.78,0.38 Q0.9,0.58,0.72,0.78 Q0.55,0.95,0.35,0.9 Q0.18,0.85,0.08,0.62 Q0,0.4,0.18,0.2 Q0.32,0.05,0.45,0.08Z" />
+    </path>
+  </clipPath>
+
+  <!-- BTS Blob -->
+  <clipPath id="btsClip" clipPathUnits="objectBoundingBox">
+    <path d="M0.5,0.1 Q0.75,0.2,0.9,0.4 Q1,0.6,0.8,0.8 Q0.6,1,0.35,0.9 Q0.1,0.75,0.05,0.55 Q0,0.35,0.2,0.2 Q0.4,0.05,0.5,0.1Z">
+      <animate attributeName="d" dur="15s" repeatCount="indefinite"
+        values="
+          M0.5,0.1 Q0.75,0.2,0.9,0.4 Q1,0.6,0.8,0.8 Q0.6,1,0.35,0.9 Q0.1,0.75,0.05,0.55 Q0,0.35,0.2,0.2 Q0.4,0.05,0.5,0.1Z;
+          M0.5,0.12 Q0.72,0.22,0.88,0.42 Q0.98,0.62,0.78,0.82 Q0.58,0.98,0.33,0.88 Q0.08,0.7,0.06,0.5 Q0.04,0.3,0.22,0.18 Q0.42,0.05,0.5,0.12Z;
+          M0.5,0.1 Q0.75,0.2,0.9,0.4 Q1,0.6,0.8,0.8 Q0.6,1,0.35,0.9 Q0.1,0.75,0.05,0.55 Q0,0.35,0.2,0.2 Q0.4,0.05,0.5,0.1Z" />
+    </path>
+  </clipPath>
+</svg>
+
+<div class="wrapper">
+  <!-- Top Logo -->
+  <img src="images/logo.png" alt="Lowkey Doom" class="top-logo">
+
+  <!-- Nav -->
+  <nav>
+    <ul>
+      <li><a href="#gallery">gallery</a></li>
+      <li><a href="#merch">merch</a></li>
+      <li><a href="#bts">BTS</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Tagline + CTAs -->
+  <div class="cta">
+    <p>Absurd, relatable humor, in miniature.</p>
+    <a href="#members" class="members">member’s lounge</a>
+    <a href="#shop" class="shop">shop</a>
+  </div>
+
+  <!-- Lady with Trash -->
+  <img src="images/lady-with-trash2.png" alt="Lady with Trash" class="lady-trash">
+
+  <div id="blobs-cont">
+    <!-- Gallery -->
+    <section id="gallery" class="align-right">
+  <h2>Gallery</h2>
+  <div class="blob-thumb-wrap">
+    <div class="blob gallery-blob" style="background:#27a9e0; clip-path:url(#galleryClip); -webkit-clip-path:url(#galleryClip);"></div>
+        <div class="gallery-thumbs">
+      <img src="images/section-thumbs/gal-01.png" alt="" onclick="openImageModal('images/gallery/annabel.png', 'Annabel was thrilled to have finally alleviated her month-long panic attack, and celebrated by creating causes for new ones to emerge.')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-02.png" alt="" onclick="openImageModal('images/gallery/bethany.png', 'Bethany was forced to wear a skirt in order to survive the hot weather, and though she stayed inside alone all day, she was still embarrassed that her legs were showing.')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-03.png" alt="" onclick="openImageModal('images/gallery/campbell.png', 'Campbell received a love letter and was overcome with joy, having neglected to notice the calendar that morning.')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-04.png" alt="" onclick="openImageModal('images/gallery/fran.png', 'Fran copes with obsessive worrying by giving a chapter title to each situation she imagines ending in catastrophe. This morning as she ate a fallen morsel off the countertop, she wondered whether she had cleaned well enough after cooking last night\'s dinner. \u0022The time I gave myself salmonella,\u0022 she announced to no one in particular, and carried on with her day.')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-05.png" alt="" onclick="openImageModal('images/gallery/kyle.png', 'Kyle doesn\'t prefer living with his parents, but isn\'t in any particular hurry to move, because not paying rent is extremely therapeutic.')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-06.png" alt="" onclick="openImageModal('images/gallery/clayton.png', 'Clayton didn\'t like poetry at all, yet there he sat every week on his only day off, pretending to read a poetry book, hoping at least a few passers-by would notice, and think he was deep and interesting.')" style="cursor: pointer;">
+    </div>
+  </div>
+</section>
+
+    <!-- Merch -->
+<section id="merch" class="align-left">
+  <h2>Merch</h2>
+  <div class="blob-thumb-wrap">
+    <div class="blob merch-blob" style="background:#f0271b; clip-path:url(#merchClip); -webkit-clip-path:url(#merchClip);"></div>
+    <div class="gallery-thumbs">
+      <img src="images/section-thumbs/merch1.png" alt="">
+      <img src="images/section-thumbs/merch2.png" alt="">
+      <img src="images/section-thumbs/merch3.png" alt="">
+    </div>
+  </div>
+</section>
+
+<!-- Behind the Scenes -->
+<section id="bts" class="align-right">
+  <h2>Behind the Scenes</h2>
+  <div class="blob-thumb-wrap">
+    <div class="blob bts-blob" style="background:#ffd93a; clip-path:url(#btsClip); -webkit-clip-path:url(#btsClip);"></div>
+    <div class="gallery-thumbs">
+      <img src="images/section-thumbs/bts1.png" alt="" onclick="openImageModal('images/gallery/bts1.png', 'Behind the scenes content')" style="cursor: pointer;">
+      <img src="images/section-thumbs/bts2.png" alt="" onclick="openImageModal('images/gallery/bts2.png', 'Behind the scenes content')" style="cursor: pointer;">
+      <img src="images/section-thumbs/bts3.png" alt="" onclick="openImageModal('images/gallery/bts3.png', 'Behind the scenes content')" style="cursor: pointer;">
+    </div>
+  </div>
+</section>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<div id="footer">
+  <div class="footer-slice"></div>
+  <div class="footer-main"></div>
+  <img src="images/cloud-1.png" alt="cloud" class="cloud cloud1">
+  <img src="images/cloud-2.png" alt="cloud" class="cloud cloud2">
+  <img src="images/logo-footer.png" alt="Footer Logo" class="footer-logo">
+  <div id="contact">Inquiries: <span id="email-obscured"></span></div>
+</div>
+
+<script>
+// Obscure email address and insert at runtime
+document.addEventListener('DOMContentLoaded', function() {
+  var user = 'inquiries';
+  var domain = 'lowkeydoom.com';
+  var email = user + '@' + domain;
+  var link = document.createElement('a');
+  link.href = 'mailto:' + email;
+  link.textContent = email;
+  document.getElementById('email-obscured').appendChild(link);
+});
+
+// Image modal function
+function openImageModal(imageSrc, caption) {
+  // Create modal backdrop
+  var modal = document.createElement('div');
+  modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:10000;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;';
+  
+  // Create modal content
+  var content = document.createElement('div');
+  content.style.cssText = 'background:white;border-radius:12px;padding:30px;max-width:90%;max-height:90%;overflow:auto;position:relative;text-align:center;';
+  
+  // Create close button
+  var closeBtn = document.createElement('button');
+  closeBtn.innerHTML = '×';
+  closeBtn.style.cssText = 'position:absolute;top:15px;right:20px;border:none;background:none;font-size:28px;cursor:pointer;color:#666;';
+  closeBtn.onclick = function() { document.body.removeChild(modal); };
+  
+  // Create image
+  var img = document.createElement('img');
+  img.src = imageSrc;
+  img.style.cssText = 'max-width:100%;max-height:60vh;border-radius:8px;display:block;margin:0 auto;';
+  
+  // Create caption
+  var captionDiv = document.createElement('div');
+  captionDiv.textContent = caption;
+  captionDiv.style.cssText = 'margin-top:20px;font-size:16px;line-height:1.4;color:#333;max-width:500px;margin-left:auto;margin-right:auto;';
+  
+  content.appendChild(closeBtn);
+  content.appendChild(img);
+  content.appendChild(captionDiv);
+  modal.appendChild(content);
+  
+  // Close on backdrop click
+  modal.onclick = function(e) {
+    if (e.target === modal) document.body.removeChild(modal);
+  };
+  
+  document.body.appendChild(modal);
+}
+</script>
+
+</body>
+</html>
