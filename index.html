@@ -382,6 +382,29 @@
     z-index: 0; 
   }
 
+  /* Mobile fixes for full-width elements */
+  @media screen and (max-width: 768px) {
+    body::before {
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+    }
+    
+    nav {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+    }
+    
+    #footer {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+    }
+  }
+
 
 </style>
 </head>
