@@ -123,7 +123,7 @@
     flex-direction: column;
     align-items: center;
     max-width: 1100px;
-    margin: -4rem auto; 
+    margin: 0rem auto; 
     padding: 0;
     gap: 0rem;
     z-index: 800;
@@ -131,28 +131,28 @@
   section h2 {
     width: 100%;
     text-align: center;
-    font-size: 3rem;
+    font-size: 4rem;
     margin-bottom: -53px;
     z-index: 1000;
     color: #111;
     text-shadow:
-      0 8px 0 #fff,
-      0 8px 0 #fff,
-      0 8px 0 #fff,
+      0 10px 0 #fff,
+      0 10px 0 #fff,
+      0 10px 0 #fff,
       0 0px 0 #fff,
-      4px 8px 0 #fff,
-      -4px 8px 0 #fff,
-      4px -4px 0 #fff,
-      -4px -4px 0 #fff,
-      4px 0px 0 #fff,
-      -4px 0px 0 #fff,
-      0px -3px 0 #fff;
+      5px 10px 0 #fff,
+      -5px 10px 0 #fff,
+      5px -5px 0 #fff,
+      -5px -5px 0 #fff,
+      5px 0px 0 #fff,
+      -5px 0px 0 #fff,
+      0px -4px 0 #fff;
   }
 
   /* Blob Base */
   .blob {
-    width: 550px;
-    height: 400px;
+    width: 750px;
+    height: 550px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -169,13 +169,55 @@
     padding: 0;
   }
 
+  /* White background blobs */
+  .blob-thumb-wrap .gallery-blob-bg {
+    background: white !important;
+    clip-path: url(#galleryClip);
+    -webkit-clip-path: url(#galleryClip);
+    width: 762px !important;
+    height: 562px !important;
+    position: absolute;
+    top: -35px !important;
+    left: 54px !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: 0;
+  }
+
+  .blob-thumb-wrap .merch-blob-bg {
+    background: white !important;
+    clip-path: url(#merchClip);
+    -webkit-clip-path: url(#merchClip);
+    width: 762px !important;
+    height: 562px !important;
+    position: absolute;
+    top: -35px !important;
+    left: 54px !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: 0;
+  }
+
+  .blob-thumb-wrap .bts-blob-bg {
+    background: white !important;
+    clip-path: url(#btsClip);
+    -webkit-clip-path: url(#btsClip);
+    width: 762px !important;
+    height: 562px !important;
+    position: absolute;
+    top: -35px !important;
+    left: 54px !important;
+    right: auto !important;
+    bottom: auto !important;
+    z-index: 0;
+  }
 
   /* Thumbnails */
   /* Thumbnails outside blob (gallery example) */
 .blob-thumb-wrap {
   position: relative;
-  width: 500px;
-  height: 250px;
+  width: 850px;
+  height: 325px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -206,7 +248,7 @@
     pointer-events: none;
   }
   .gallery-thumbs img {
-    width: 120px;
+    width: 220px;
     margin: -80px 10px;
     border-radius: 24px;
     border: 6px solid #27a9e0;
@@ -484,15 +526,12 @@
     <section id="gallery" class="align-right">
   <h2>Gallery</h2>
   <div class="blob-thumb-wrap">
-    <div class="blob gallery-blob-bg" style="background:white; clip-path:url(#galleryClip); -webkit-clip-path:url(#galleryClip); width:558px; height:408px; position:absolute; top:-4px; left:-4px; z-index:0;"></div>
+    <div class="blob gallery-blob-bg"></div>
     <div class="blob gallery-blob" style="background:#27a9e0; clip-path:url(#galleryClip); -webkit-clip-path:url(#galleryClip); position:relative; z-index:1; top:74px; left: 8px;"></div>
         <div class="gallery-thumbs">
-      <img src="images/section-thumbs/gal-01.png" alt="" onclick="openImageModal('images/gallery/annabel.png', 'Annabel was thrilled to have finally alleviated her month-long panic attack, and celebrated by creating causes for new ones to emerge.')" style="cursor: pointer;">
-      <img src="images/section-thumbs/gal-02.png" alt="" onclick="openImageModal('images/gallery/bethany.png', 'Bethany was forced to wear a skirt in order to survive the hot weather, and though she stayed inside alone all day, she was still embarrassed that her legs were showing.')" style="cursor: pointer;">
-      <img src="images/section-thumbs/gal-03.png" alt="" onclick="openImageModal('images/gallery/campbell.png', 'Campbell received a love letter and was overcome with joy, having neglected to notice the calendar that morning.')" style="cursor: pointer;">
-      <img src="images/section-thumbs/gal-04.png" alt="" onclick="openImageModal('images/gallery/fran.png', 'Fran copes with obsessive worrying by giving a chapter title to each situation she imagines ending in catastrophe. This morning as she ate a fallen morsel off the countertop, she wondered whether she had cleaned well enough after cooking last night\'s dinner. \u0022The time I gave myself salmonella,\u0022 she announced to no one in particular, and carried on with her day.')" style="cursor: pointer;">
-      <img src="images/section-thumbs/gal-05.png" alt="" onclick="openImageModal('images/gallery/kyle.png', 'Kyle doesn\'t prefer living with his parents, but isn\'t in any particular hurry to move, because not paying rent is extremely therapeutic.')" style="cursor: pointer;">
-      <img src="images/section-thumbs/gal-06.png" alt="" onclick="openImageModal('images/gallery/clayton.png', 'Clayton didn\'t like poetry at all, yet there he sat every week on his only day off, pretending to read a poetry book, hoping at least a few passers-by would notice, and think he was deep and interesting.')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-01.png" alt="" onclick="window.open('https://www.instagram.com/lowkeydoom/', '_blank')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-03.png" alt="" onclick="window.open('https://www.instagram.com/lowkeydoom/', '_blank')" style="cursor: pointer;">
+      <img src="images/section-thumbs/gal-05.png" alt="" onclick="window.open('https://www.instagram.com/lowkeydoom/', '_blank')" style="cursor: pointer;">
     </div>
   </div>
 </section>
@@ -501,7 +540,7 @@
 <section id="merch" class="align-left">
   <h2>Merch</h2>
   <div class="blob-thumb-wrap">
-    <div class="blob merch-blob-bg" style="background:white; clip-path:url(#merchClip); -webkit-clip-path:url(#merchClip); width:558px; height:408px; position:absolute; top:-4px; left:-4px; z-index:0;"></div>
+    <div class="blob merch-blob-bg"></div>
     <div class="blob merch-blob" style="background:#f0271b; clip-path:url(#merchClip); -webkit-clip-path:url(#merchClip); position:relative; z-index:1; top:74px; left: 8px;"></div>
     <div class="gallery-thumbs">
       <img src="images/section-thumbs/merch1.png" alt="">
@@ -515,7 +554,7 @@
 <section id="bts" class="align-right">
   <h2>Behind the Scenes</h2>
   <div class="blob-thumb-wrap">
-    <div class="blob bts-blob-bg" style="background:white; clip-path:url(#btsClip); -webkit-clip-path:url(#btsClip); width:558px; height:408px; position:absolute; top:-4px; left:-4px; z-index:0;"></div>
+    <div class="blob bts-blob-bg"></div>
     <div class="blob bts-blob" style="background:#ffd93a; clip-path:url(#btsClip); -webkit-clip-path:url(#btsClip); position:relative; z-index:1; top:74px; left: 8px;"></div>
     <div class="gallery-thumbs">
       <img src="images/section-thumbs/bts1.png" alt="" onclick="openImageModal('images/gallery/bts1.png', 'Digitally designed house template, printed, and folded into tiny paper houses for the miniature neighborhood seen in Iris')" style="cursor: pointer;">
